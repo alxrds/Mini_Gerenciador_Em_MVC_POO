@@ -20,13 +20,13 @@
             if(!$user){
                 return false;
             }
-            if($user['password'] != $credentials['password']){
-                return false;
+            if($user['password'] == md5($credentials['password'])){
+                Session::add('user', $user);
+                return true;
             }
             unset($user['password']);
-            Session::add('user', $user);
-            return true;
         }
+
         public function logout()
         {
             if(Session::has('user')){
